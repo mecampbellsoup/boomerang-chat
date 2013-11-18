@@ -14,6 +14,8 @@ class ServerAuth
   end
 end
 
+logger = Logger.new('log/faye.log')
 faye_server = Faye::RackAdapter.new(:mount => '/faye', :timeout => 45)
 faye_server.add_extension(ServerAuth.new)
+use Rack::CommonLogger, logger
 run faye_server
